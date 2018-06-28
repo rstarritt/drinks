@@ -19,16 +19,35 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <fstream>
+#include <random>
+#include <time.h>
 
 using namespace std;
 // use a vector to store a number of drinks and randomly select one for the user to drink.
-int main()
-{
+const string fileName = "BEvERages.csv";
+int main() {
     vector<string> drinks;
-    drinks.push_back("Mojito");
+    fstream fin;
+    srand(time(0));
+    int index = 0;
 
+    try {
+        fin.open(fileName, ios::in);
+    } catch (exception e) {
+    cout << "Drinks not found. Please locate the BEvERages file." << endl;
+    }
+
+    if (fin.is_open()) {
+        string item;
+        while(getline(fin,item,',')) {
+            drinks.push_back(item);
+        }
+    }
+    fin.close();
     cout << "Let's have a drink!" << endl;
-
-    cout << "How about a " << drinks.at(0) << "?" << endl;
+    //randy.seed(time(NULL));
+    index = rand() % drinks.size();
+    cout << "How about a " << drinks.at(index) << "?" << endl;
     return 0;
 }
