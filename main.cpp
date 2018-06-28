@@ -24,15 +24,15 @@
 #include <time.h>
 
 using namespace std;
-// use a vector to store a number of drinks and randomly select one for the user to drink.
+
 const string fileName = "BEvERages.csv";
 int main() {
-    vector<string> drinks;
-    fstream fin;
+    vector<string> drinks;//stores the drinks
+    fstream fin;//reads the file
     srand(time(0));
     int index = 0;
 
-    try {
+    try {//open drinks file and then read contents to drinks vector
         fin.open(fileName, ios::in);
     } catch (exception e) {
     cout << "Drinks not found. Please locate the BEvERages file." << endl;
@@ -45,8 +45,9 @@ int main() {
         }
     }
     fin.close();
+
+    //present the user with a drink
     cout << "Let's have a drink!" << endl;
-    //randy.seed(time(NULL));
     index = rand() % drinks.size();
     cout << "How about a " << drinks.at(index) << "?" << endl;
     return 0;
